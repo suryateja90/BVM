@@ -1,0 +1,144 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header" *ngFor="let breadscrum of breadscrums">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+        </app-breadcrumb>
+      </div>
+      <div class="d-flex justify-content-end">
+        <button mat-raised-button color="primary" class="big-button" (click)="openDialog()">Modify Prices</button>
+      </div>
+      <div class="row clearfix mt-2">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="card">
+            <div class="d-flex bd-highlight">
+                <div class="ms-5 p-2 w-75 header">
+                   <h2>
+                    My Earnings
+                   </h2>
+                </div>
+                <div class="p-2 ">
+                    <mat-form-field>
+                        <mat-label>Select Teacher</mat-label>
+                        <mat-select [(ngModel)]="selectedTeacher" (ngModelChange)="chooseTeacher()" required>
+                            <ng-container *ngFor="let item of tch">
+                                <mat-option [value]="item">
+                                    {{item.firstName}} {{item.lastName}}
+                                  </mat-option>
+                            </ng-container>
+                          </mat-select>
+                      </mat-form-field>   
+                </div>
+                <div class="p-2 ">
+                  <mat-form-field>
+                      <mat-label>Select month</mat-label>
+                      <mat-select [(ngModel)]="selectedMonth" (ngModelChange)="chooseEarnings()" [disabled]="!selectedTeacher" required>
+                          <ng-container *ngFor="let item of months">
+                              <mat-option [value]="item">
+                                  {{item.value}}
+                                </mat-option>
+                          </ng-container>
+                        </mat-select>
+                    </mat-form-field>   
+              </div>
+              </div>
+            <div class="body">
+             
+
+                <div class="container mt-4">
+                    <div class="row justify-content-between">
+                      <!-- Left Side: Total Earnings Card (col-5) -->
+                      <div class="col-md-5">
+                        <div class="card">
+                          <div class="card-body">
+                            <h5 class="card-title">Total Earnings</h5>
+                            <h3 class="card-text" *ngIf="totalEarning !== 0">Rs{{ totalEarning }}/-</h3>
+                            <h3 class="card-text" *ngIf="totalEarning === 0">Rs0/-</h3>
+                          </div>
+                        </div>
+                      </div>
+                  
+                      <!-- Right Side: Different Kinds of Earnings (col-6) -->
+                      <div class="col-md-6">
+                        <div class="card">
+                          <div class="card-body">
+                            <h5 class="card-title text-center">Earnings Breakdown</h5>
+
+                            <h6>Number of classes</h6>
+                            <ul class="list-group list-group-flush">
+                              <li class="list-group-item">
+                               Total Paid Classes: {{earningsData?.paid || '0'}}
+                              </li>
+                              <li class="list-group-item">
+                               Total Demo Classes: {{earningsData?.demo || '0'}}
+                              </li>
+                            </ul>
+
+                            <!-- <h6>Prices of Classes</h6>
+
+                            <ul class="list-group list-group-flush">
+                              <li class="list-group-item">
+                               Paid Class : {{prices.paid}}
+                              </li>
+                              <li class="list-group-item">
+                               Demo Class: {{prices.demo}}
+                              </li>
+                            </ul> -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <ng-template #formDialogTemplate let-dialogRef="dialogRef">
+
+    <div class="row clearfix">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2>Add Pricing</h2>
+          </div>
+          <div class="body">
+            <form [formGroup]="form" class="m-4">
+            <div class="row">
+              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                <mat-form-field class="form-field">
+                  <mat-label>Paid Class Pricing</mat-label>
+                  <input matInput placeholder="Paid class pricing" type="number" formControlName="paid">
+                  <mat-error *ngIf="form.get('paid')?.hasError('required')">Paid class pricing is required</mat-error>
+                  <mat-error *ngIf="form.get('paid')?.hasError('min')">Value must be greater than or equal to 0</mat-error>
+                </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="form-field">
+                    <mat-label>Demo Class Pricing</mat-label>
+                    <input matInput placeholder="Demo class pricing" type="number" formControlName="demo">
+                    <mat-error *ngIf="form.get('demo')?.hasError('required')">Demo class pricing is required</mat-error>
+                    <mat-error *ngIf="form.get('demo')?.hasError('min')">Value must be greater than or equal to 0</mat-error>
+                  </mat-form-field>
+                </div>
+                </div>
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <button class="btn-space" mat-raised-button color="primary" (click)="onSubmit()">Submit</button>
+                    <button type="button" mat-raised-button color="warn" (click)="closeDialog()">Cancel</button>
+                  </div>
+                </div>
+              </form>
+          </div>
+          </div>
+          </div>
+          </div>    
+    
+    
+  </ng-template>
+  
+  
+  

@@ -1,0 +1,49 @@
+<section class="content">
+   <!-- Loading spinner -->
+   <div *ngIf="auth.requestInProgress$ | async" class="tbl-spinner">
+    <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
+    </mat-progress-spinner>
+  </div>
+  <div class="content-block">
+    <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+      </app-breadcrumb>
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-2 col-sm-12 p-l-30">
+                <div class="m-b-25">
+                  <button mat-raised-button color="primary" (click)="addNewEvent()">Add Class</button>                  
+                </div>
+                <div  class="m-b-25">
+                  <button mat-raised-button color="primary" (click)="addDemoEvent()">Add Demo</button>
+                </div>
+                <p  *ngIf="filters && filters.length">Filters</p>
+                <div class="filter-container" *ngIf="filters && filters.length">
+                  <ul>
+                    <li *ngFor="let filter of filters">
+                      <mat-checkbox [checked]="filter.checked" [value]="filter.value" color="primary"
+                        (change)="changeCategory($event, filter)">
+                        {{filter.value | titlecase}}
+                      </mat-checkbox>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-10 col-sm-12">
+                <div class="panel-body">
+                  <full-calendar [options]='calendarOptions' [events]="calendarEvents">
+                  </full-calendar>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,91 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+      </app-breadcrumb>
+    </div>
+    <div class="row">
+      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2>Task List</h2>
+          </div>
+          <div class="body">
+            <mat-tab-group>
+              <mat-tab>
+                <ng-template mat-tab-label>
+                  My Classes
+                </ng-template>
+                <div class="table-responsive mt-3">
+                  <table class="table table-hover dashboard-task-infos">
+                    <thead>
+                      <tr>
+                        <th>Student</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <ng-container *ngIf="myClasses && myClasses.length">
+                      <tr *ngFor="let item of myClasses">
+                        <td>{{item?.std | titlecase}}</td>
+                        <td>{{item?.type}}</td>
+                        <td *ngIf="item.status !== 'approved'"><span class="badge col-red">{{item.status | titlecase}}</span></td>
+                        <td *ngIf="item.status === 'approved'"><span class="badge col-green">{{item.status | titlecase}}</span></td>
+                      </tr>
+                    </ng-container>
+                    <ng-container *ngIf="myClasses && myClasses.length === 0" class="no-results">
+                      No results
+                      </ng-container>
+                    </tbody>
+                  </table>
+                </div>
+              </mat-tab>
+            </mat-tab-group>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+       <div id="chart" *ngIf="earningsChart && earningsChart.series">
+        <apx-chart
+  [series]="earningsChart.series!"
+  [chart]="earningsChart.chart!"
+  [dataLabels]="earningsChart.dataLabels!"
+  [plotOptions]="earningsChart.plotOptions!"
+  [yaxis]="earningsChart.yaxis!"
+  [legend]="earningsChart.legend!"
+  [fill]="earningsChart.fill!"
+  [stroke]="earningsChart.stroke!"
+  [tooltip]="earningsChart.tooltip!"
+  [xaxis]="earningsChart.xaxis!"
+></apx-chart>
+       </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+       <app-my-schedule></app-my-schedule>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+<!-- <div id="chart">
+  <apx-chart
+    [series]="chartOptions.series!"
+    [chart]="chartOptions.chart!"
+    [dataLabels]="chartOptions.dataLabels!"
+    [plotOptions]="chartOptions.plotOptions!"
+    [yaxis]="chartOptions.yaxis!"
+    [legend]="chartOptions.legend!"
+    [fill]="chartOptions.fill!"
+    [stroke]="chartOptions.stroke!"
+    [tooltip]="chartOptions.tooltip!"
+    [xaxis]="chartOptions.xaxis!"
+  ></apx-chart>
+</div> -->

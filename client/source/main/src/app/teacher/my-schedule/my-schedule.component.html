@@ -1,0 +1,36 @@
+      <div class="card">
+        <div class="header">
+          <h2>Timeline</h2>
+          <select class="custom-select" [(ngModel)]="selectedDay" (ngModelChange)="loadAll()">
+            <option disabled selected>Select Day</option>
+            <option *ngFor="let d of days" [value]="d">{{d}}</option>
+          </select>
+        </div>
+        <div class="body" >
+          <section id="cd-timeline" class="cd-container" *ngIf="timelineData && timelineData.length">
+            <div class="cd-timeline-block" *ngFor="let item of timelineData">
+              <div class="cd-timeline-img cd-picture">
+                <img src="assets/images/user/user1.jpg" alt="User">
+              </div>
+              <!-- cd-timeline-img -->
+              <div class="cd-timeline-content" >
+                <h2 class="timelineLabelColor">
+                  <strong *ngIf="item.regular">Regular class</strong>
+                  <strong *ngIf="item.demo">Demo class</strong>
+                </h2>
+                <p>{{item.stdname | titlecase}}</p>
+                <span class="cd-date" *ngIf="item.regular">{{item.start_date | date:'shortTime'}}</span>
+                <span class="cd-date" *ngIf="item.demo">{{item.startDate | date:'shortTime'}}</span>
+              </div>
+              <!-- cd-timeline-content -->
+            </div>
+            <!-- cd-timeline-block -->
+          </section>
+          <!-- cd-timeline -->
+
+          <div *ngIf="!(timelineData && timelineData.length)" class="no-results"
+                [style.display]="(timelineData && timelineData.length) !== 0 ? '' : 'none'">
+                No results
+              </div>
+        </div>
+      </div>

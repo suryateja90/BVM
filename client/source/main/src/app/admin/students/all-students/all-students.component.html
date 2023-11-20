@@ -1,0 +1,144 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+      </app-breadcrumb>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+
+          <!-- header section -->
+
+          <div class="materialTableHeader">
+            <div class="left">
+              <ul class="header-buttons-left ms-0">
+                <li class="tbl-title">
+                  <h2>All Students</h2>
+                </li>
+                <li class="tbl-search-box">
+                  <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                  <input placeholder="Search" type="text" #filter class="browser-default search-field"
+                    aria-label="Search box" (keyup)="applyFilter(filter.value)">
+                </li>
+              </ul>
+            </div>
+            <div class="right">
+              <ul class="tbl-export-btn">
+                <li class="tbl-header-btn">
+                  <div class="m-l-10" matTooltip="ADD">
+                    <button mat-mini-fab color="primary" (click)="addNew()">
+                      <mat-icon class="col-white">add</mat-icon>
+                    </button>
+                  </div>
+                </li>
+                <li class="tbl-header-btn">
+                  <div class="m-l-10" matTooltip="REFRESH">
+                    <button mat-mini-fab color="primary" (click)="refresh()">
+                      <mat-icon class="col-white">refresh</mat-icon>
+                    </button>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+        <div class="body overflow-auto">
+        <div class="responsive_table">  
+      <table matSort class="mat-cell advance-table" mat-table [dataSource]="dataSource">
+
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+          <mat-cell *matCellDef="let element" class="align-middle"> {{element.id}} </mat-cell>
+        </ng-container>
+        
+        <ng-container matColumnDef="mobile">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Mobile </mat-header-cell>
+          <mat-cell *matCellDef="let element" class="align-middle"> {{element.mobile}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+          <mat-cell *matCellDef="let element" class="align-middle">
+            {{element.firstName}} {{element.lastName}}
+          </mat-cell>
+        </ng-container>
+        
+        <ng-container matColumnDef="mail">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+          <mat-cell *matCellDef="let element" class="align-middle"> {{element.mail}} </mat-cell>
+        </ng-container>
+                
+        <ng-container matColumnDef="grade">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Grade</mat-header-cell>
+          <mat-cell *matCellDef="let element" class="align-middle"> {{element.grade}} </mat-cell>
+        </ng-container>
+        
+        <ng-container matColumnDef="course">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Course</mat-header-cell>
+          <mat-cell *matCellDef="let element" class="align-middle"> {{element.course}} </mat-cell>
+        </ng-container>
+        
+        <ng-container matColumnDef="gender">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Gender</mat-header-cell>
+          <mat-cell *matCellDef="let element" class="align-middle"> {{element.gender}} </mat-cell>
+        </ng-container>
+                
+        <ng-container matColumnDef="address">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Address</mat-header-cell>
+          <mat-cell *matCellDef="let element" class="align-middle"> {{element.address}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="dob">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> DOB</mat-header-cell>
+          <mat-cell *matCellDef="let element" class="align-middle"> {{element.dob | date: 'MM/dd/yyyy'}} </mat-cell>
+        </ng-container>
+        
+        <ng-container matColumnDef="note">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Note</mat-header-cell>
+          <mat-cell *matCellDef="let element" class="align-middle"> {{element.note}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <mat-header-cell class="pr-0" *matHeaderCellDef>Actions
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
+            <button mat-icon-button (click)="$event.stopPropagation()" (click)="editCall(row)"
+              class="tbl-action-btn">
+              <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
+            </button>
+            <button mat-icon-button (click)="$event.stopPropagation()" (click)="deleteItem(row)"
+              class="tbl-action-btn">
+              <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
+            </button>
+          </mat-cell>
+        </ng-container>
+    
+    <mat-header-row *matHeaderRowDef="displayedColumns">
+    </mat-header-row>
+    <!-- <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> -->
+    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="viewCall(row)"
+      [style.cursor]="'pointer'" matRipple>
+    </mat-row>
+  </table>
+
+  <div *ngIf="isTblLoading" class="tbl-spinner">
+    <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
+    </mat-progress-spinner>
+  </div>
+  <div *ngIf="!isTblLoading && dataSource.data"  class="no-results"
+                        [style.display]="dataSource.data.length === 0 ? '' : 'none'">
+                        No results
+                      </div>
+                      <ng-container *ngIf="dataSource.data">
+                      <mat-paginator #paginator [length]="dataSource.data.length" [pageIndex]="0"
+                      [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+                    </mat-paginator>
+                  </ng-container>
+      </div>
+    </div>
+    </div>
+    </div>
+  </div>
+  </div>
+</section>

@@ -1,0 +1,138 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+      </app-breadcrumb>
+    </div>
+    <!-- Widgets -->
+    <div class="row">
+      <div class="col-lg-3 col-md-3 col-sm-12">
+        <div class="card card-statistic-2">
+          <div class="clearfix">
+            <div class="card-icon-only shadow-primary float-start">
+              <img src="assets/images/banner/img1.png" alt="">
+            </div>
+            <div class="card-right">
+              <div>
+                <h5 class="float-end">Total Students</h5>
+              </div>
+              <div class="col-green">
+                <h3 class="font-weight-bold float-end mb-0">{{totalStd?.length}}</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-12">
+        <div class="card card-statistic-2">
+          <div class="clearfix">
+            <div class="card-icon-only shadow-primary float-start">
+              <img src="assets/images/banner/img2.png" alt="">
+            </div>
+            <div class="card-right">
+              <div>
+                <h5 class="float-end">Regular Classes</h5>
+              </div>
+              <div class="col-green">
+                <h3 class="font-weight-bold float-end mb-0">{{totalRegCls.length}}/{{numCls}}</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-12">
+        <div class="card card-statistic-2">
+          <div class="clearfix">
+            <div class="card-icon-only shadow-primary float-start">
+              <img src="assets/images/banner/img3.png" alt="">
+            </div>
+            <div class="card-right">
+              <div>
+                <h5 class="float-end">Total Teachers</h5>
+              </div>
+              <div class="col-green">
+                <h3 class="font-weight-bold float-end mb-0">{{totalTch?.length}}</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-12">
+        <div class="card card-statistic-2">
+          <div class="clearfix">
+            <div class="card-icon-only shadow-primary float-start">
+              <img src="assets/images/banner/img4.png" alt="">
+            </div>
+            <div class="card-right">
+              <div>
+                <h5 class="float-end">Regular Earnings</h5>
+              </div>
+              <div class="col-green">
+                <h3 class="font-weight-bold float-end mb-0">{{regEarnings}}Rs/-</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- #END# Widgets -->
+    <div class="row clearfix">
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <div class="card">
+          <div class="header">
+            <h2>Classes in this week</h2>
+          </div>
+          <div class="float-start ms-3 me-3">
+            <h5><span class="text-muted font-12">(Demo)</span></h5>
+          </div>
+          <div class="body" *ngIf="performanceRateChartOptions2 && performanceRateChartOptions2.series">
+            <apx-chart [series]="performanceRateChartOptions2.series!" [chart]="performanceRateChartOptions2.chart!"
+              [xaxis]="performanceRateChartOptions2.xaxis!" [stroke]="performanceRateChartOptions2.stroke!"
+              [colors]="performanceRateChartOptions2.colors!" [dataLabels]="performanceRateChartOptions2.dataLabels!"
+              [legend]="performanceRateChartOptions2.legend!" [markers]="performanceRateChartOptions2.markers!"
+              [grid]="performanceRateChartOptions2.grid!" [yaxis]="performanceRateChartOptions2.yaxis!"
+              [tooltip]="performanceRateChartOptions2.tooltip!" [title]="performanceRateChartOptions2.title!">
+            </apx-chart>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <div class="card">
+          <div class="header">
+            <h2>Classes in this week</h2>
+          </div>
+          <div class="float-start ms-3 me-3">
+            <h5><span class="text-muted font-12">(Regular)</span></h5>
+          </div>
+          <div class="body" *ngIf="performanceRateChartOptions && performanceRateChartOptions.series">
+            <apx-chart [series]="performanceRateChartOptions.series!" [chart]="performanceRateChartOptions.chart!"
+              [xaxis]="performanceRateChartOptions.xaxis!" [stroke]="performanceRateChartOptions.stroke!"
+              [colors]="performanceRateChartOptions.colors!" [dataLabels]="performanceRateChartOptions.dataLabels!"
+              [legend]="performanceRateChartOptions.legend!" [markers]="performanceRateChartOptions.markers!"
+              [grid]="performanceRateChartOptions.grid!" [yaxis]="performanceRateChartOptions.yaxis!"
+              [tooltip]="performanceRateChartOptions.tooltip!" [title]="performanceRateChartOptions.title!">
+            </apx-chart>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <div class="card">
+          <div class="header">
+            <h2>Total Earnings</h2>
+          </div>
+          <div class="float-start ms-3 me-3">
+            <h5>Includes regular & demo classes</h5>
+          </div>
+          <div class="body" *ngIf="polarChartOptions && polarChartOptions.series2">
+            <apx-chart [series]="polarChartOptions.series2!" [chart]="polarChartOptions.chart!"
+              [labels]="polarChartOptions.labels!" [title]="polarChartOptions.title!" [theme]="polarChartOptions.theme!"
+              [fill]="polarChartOptions.fill!" [yaxis]="polarChartOptions.yaxis!" [stroke]="polarChartOptions.stroke!"
+              [legend]="polarChartOptions.legend!" [plotOptions]="polarChartOptions.plotOptions!"
+              [colors]="polarChartOptions.colors!"></apx-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

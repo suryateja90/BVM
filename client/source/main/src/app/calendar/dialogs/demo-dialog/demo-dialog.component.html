@@ -1,0 +1,81 @@
+<div class="addContainer">
+    <div class="modalHeader">
+      <div class="editRowModal">
+        <div class="modalHeader clearfix">
+          <div class="modal-about">
+            {{dialogTitle}}
+          </div>
+        </div>
+      </div>
+      <button mat-icon-button (click)="dialogRef.close()" class="modal-close-button" aria-label="Close dialog">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div mat-dialog-content>
+      <form class="register-form m-4" [formGroup]="calendarForm">
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 ">
+            <mat-form-field class="example-full-width mb-3" appearance="outline">
+              <mat-label>Teacher</mat-label>
+              <mat-select formControlName="teacher_id">
+                <ng-container *ngFor="let item of tch">
+                    <mat-option [value]="item.id">{{item.name}}</mat-option>
+                </ng-container>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 ">
+            <mat-form-field class="example-full-width mb-3" appearance="outline">
+              <mat-label>Student</mat-label>
+              <input matInput formControlName="stdname"  placeholder="Class" required>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 ">
+            <mat-form-field class="example-full-width mb-3" appearance="outline">
+              <mat-label>Start date</mat-label>
+              <input matInput formControlName="startDate" [owlDateTimeTrigger]="startDate" [owlDateTime]="startDate"
+                placeholder="Choose a date" required>
+              <mat-icon matSuffix [owlDateTimeTrigger]="startDate" class="date-icon">today</mat-icon>
+              <owl-date-time #startDate></owl-date-time>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <mat-form-field class="example-full-width mb-3" appearance="outline">
+              <mat-label>Event Details</mat-label>
+              <textarea matInput formControlName="eventdetails"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 ">
+            <mat-checkbox formControlName="assigned" [disableRipple]="true" (click)="$event.preventDefault()">Assign</mat-checkbox>
+           <mat-checkbox  formControlName="completed" *ngIf="role == 'Teacher'">Complete</mat-checkbox> 
+            <ng-container *ngIf="role == 'Admin'"><mat-checkbox formControlName="approved">Approve</mat-checkbox></ng-container>
+     </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-10 col-lg-10 col-md-12 col-sm-12">
+            <div class="example-button-row">
+              <button mat-raised-button color="primary" [type]="submit" [disabled]="!calendarForm.valid"
+                (click)="confirmAdd()">Save</button>
+              <button mat-raised-button color="warn" (click)="dialogRef.close()" tabindex="-1">Cancel</button>
+            </div>
+          </div>
+          <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+            <div class="example-button-row" *ngIf="showDeleteBtn">
+              <button mat-mini-fab aria-label color="warn" (click)="deleteEvent()" *ngIf="role == 'Admin'">
+                <mat-icon class="font-20">delete</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  

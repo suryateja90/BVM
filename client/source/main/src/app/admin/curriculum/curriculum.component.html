@@ -1,0 +1,88 @@
+<section class="content">
+  <div class="content-block">
+    <!-- Basic Table -->
+    <div class="row mt-4">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="header">
+            <div class="d-flex align-items-center">
+              <span class="flex-grow-1">
+                  <mat-form-field>
+                      <mat-label>Select Grade</mat-label>
+                      <mat-select [(ngModel)]="gradeValue" (ngModelChange)="onGradeSelected()" [disabled]="true" required>
+                          <ng-container *ngFor="let item of gradesInfo">
+                              <mat-option [value]="item.id">
+                                  {{item.grade}}
+                              </mat-option>
+                          </ng-container>
+                      </mat-select>
+                  </mat-form-field>
+              </span>
+              <span class="ms-2" *ngIf="gradeValue">
+                  <!-- <button class="btn btn-primary" (click)="addItem()">Add</button> -->
+                  <button mat-mini-fab color="primary" (click)="addItem()">
+                    <mat-icon class="col-white">add</mat-icon>
+                  </button>
+              </span>
+          </div>
+          
+          </div>
+          <div class="body table-responsive" [formGroup]="proForm">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>S.No</th>
+                  <th>Lesson Name</th>
+                  <th>Description</th>
+                  <th>Link</th>
+                </tr>
+              </thead>
+              <tbody formArrayName="curriculum" *ngFor="let item of getControls(); let i = index;">
+                <tr [formGroupName]="i">
+                  <td>
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>S.No</mat-label>
+                      <input matInput formControlName="sno" type="number">
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Lesson Name</mat-label>
+                      <input matInput formControlName="lesson_name">
+                    </mat-form-field>
+                </td>
+                  <td>
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Description</mat-label>
+                      <textarea matInput formControlName="description"></textarea>
+                    </mat-form-field>
+                </td>
+                  <td>
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Link</mat-label>
+                      <input matInput formControlName="link">
+                    </mat-form-field>
+                </td>
+                  <td>
+                    <!-- <button class="" mat-raised-button color="warn" (click)="removeRow(i)">Remove</button> -->
+                    <button mat-icon-button (click)="$event.stopPropagation()" (click)="removeRow(i)"
+                    class="tbl-action-btn remove">
+                    <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
+                  </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="row" *ngIf="getControls().length">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2 mx-auto text-center">
+                <button class="btn-space" mat-raised-button color="primary"  [disabled]="proForm.invalid" (click)="submit()">Submit</button>
+                <button type="button" mat-raised-button color="warn" (click)="goBack()">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- #END# Colorful rows -->
+  </div>
+</section>

@@ -1,0 +1,54 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+      </app-breadcrumb>
+    </div>
+    <!-- Your content goes here  -->
+    <div class="row clearfix">
+      <div class="col-lg-4 col-md-12 mx-auto text-center">
+        <div class="card">
+          <div class="m-b-20">
+            <div class="contact-grid">
+              <div class="profile-header bg-dark">
+                <div class="user-name">{{info?.firstName}} {{info?.lastName}}</div>
+                <div class="name-center">{{info?.grade}}</div>
+              </div>
+              <img src="assets/images/user/usrbig3.jpg" class="user-img" alt="">
+              <p>
+                {{info?.address}}              
+              </p>
+              <div>
+                <span class="phone">
+                  <i class="material-icons">phone</i>{{info?.mobile}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <mat-tab-group mat-align-tabs="start">
+            <mat-tab label="Info">
+              <div class="p-4">
+                <ul class="list-group list-group-unbordered">
+                  <li class="list-group-item">
+                    <b>Gender </b>
+                    <div class="profile-desc-item float-end">{{info?.gender}}</div>
+                  </li>
+                  <li class="list-group-item">
+                    <b>Course </b>
+                    <div class="profile-desc-item float-end">{{info?.course}}</div>
+                  </li>
+                  <li class="list-group-item">
+                    <b>D.O.B</b>
+                    <div class="profile-desc-item float-end">{{info?.dob | date: 'MM/dd/yyyy'}}</div>
+                  </li>
+                </ul>
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
